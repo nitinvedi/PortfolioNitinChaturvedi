@@ -173,7 +173,7 @@ const Home = () => {
       animate="visible"
       exit={{ opacity: 0 }}
       variants={containerVariants}
-      className="scroll-smooth bg-black/5 text-zinc-100"
+      className="scroll-smooth bg-zinc-950/70 text-zinc-100"
       style={{
         fontFamily: '"Merriweather", serif',
         fontOpticalSizing: 'auto',
