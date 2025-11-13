@@ -156,6 +156,7 @@ const Home = () => {
       },
     },
   };
+  const contentRef = useRef(null);
 
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -165,7 +166,6 @@ const Home = () => {
   const [expanded, setExpanded] = useState(false);
 
   const toggleExpand = () => setExpanded(!expanded);
-
 
   return (
     <motion.div
@@ -208,16 +208,21 @@ const Home = () => {
             </Link>
           </motion.div>
 
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            className={`relative mt-10 text-base sm:text-md text-gray-300 leading-loose tracking-wider border-y-2 border-zinc-700 overflow-hidden`}
+            className="relative mt-10 text-base sm:text-md text-gray-300 leading-loose tracking-wider border-y-2 border-zinc-700"
           >
+            {/* Animated content with dynamic height */}
             <motion.div
-              animate={{ maxHeight: expanded ? 500 : 80 }}
-              transition={{ duration: 0.8, ease: 'easeInOut' }}
+              animate={{
+                maxHeight: expanded ? contentRef.current?.scrollHeight : 80
+              }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
               className="overflow-hidden px-6"
+              ref={contentRef}
             >
               <p className='my-6'>
                 I'm a full-stack developer with a drive for building beautiful, functional, and scalable web applications.
@@ -228,24 +233,21 @@ const Home = () => {
               <p className='my-6'>
                 Enthusiastic about <strong>competitive coding</strong>. I also enjoy contributing to open-source projects, mentoring others, and continuously learning new tools and technologies to build impactful products.
               </p>
-              {/* <div className="h-6 w-full" aria-hidden="true"></div> */}
             </motion.div>
 
+            {/* Read more / Read less button (below text, no overlap) */}
             <div
               onClick={toggleExpand}
-              className="absolute w-full text-center text-white bottom-0 text-xs bg-zinc-900/30 cursor-pointer py-2 transition-all"
+              className="w-full text-center text-white text-xs bg-zinc-900/30 cursor-pointer py-2 transition-all hover:bg-zinc-900/50"
             >
               {expanded ? (
-                <>
-                  Read less <span className="hover:animate-bounce">↑</span>
-                </>
+                <>Read less <span className="hover:animate-bounce">↑</span></>
               ) : (
-                <>
-                  Read more <span className="hover:animate-bounce">↓</span>
-                </>
+                <>Read more <span className="hover:animate-bounce">↓</span></>
               )}
             </div>
           </motion.div>
+
 
           <div className="mt-12 flex flex-row gap-4 justify-center">
             <div className="flex flex-col items-center gap-2">
